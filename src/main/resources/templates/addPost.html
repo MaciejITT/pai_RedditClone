@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang= "pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head">
+</head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+<div class="form p-4 ">
+    <div class="container col-sm-8 shadow p-3 mt-3 mb-5 bg-white rounded">
+        <div class="text-center">
+            <h2>Dodaj post</h2>
+        </div>
+        <form class="justify-content-center" th:action="@{/addPost}" method="POST" th:object="${post}">
+            <input class="form-control" type="hidden" th:field="*{user}"  th:errorClass="error" th:value="*{user}"/>
+            <input class="form-control" type="hidden" th:field="*{votes}"  th:errorClass="error" th:value="0"/>
+
+            <label for="NameFormControlInput" class="form-label">Tytuł</label>
+            <input class="form-control" type="text" th:field="*{post_name}"  th:errorClass="error" id="NameFormControlInput"/>
+            <span th:if="${#fields.hasErrors('post_name')}" th:errors="*{post_name}">Błąd </span><br>
+
+            <label for="PostFormControlInput" class="form-label">Treść</label>
+            <input class="form-control" type="text" th:field="*{post_content}"  th:errorClass="error"  id="PostFormControlInput"/>
+            <span th:if="${#fields.hasErrors('post_content')}" th:errors="*{post_content}">Błąd </span><br>
+
+            <button class="btn btn-dark" type="submit">Dodaj</button>
+        </form>
+    </div>
+</div>
+<div th:include="layout :: footer"></div>
+</body>
+</html>
