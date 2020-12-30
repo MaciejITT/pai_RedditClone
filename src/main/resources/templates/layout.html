@@ -21,10 +21,9 @@
         th,td {border: solid 1px black;padding: 5px;}
     </style>
 </head>
-<body class="bg-light">
-
+<body>
 <div th:fragment="navigationPanel" >
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
         <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
             <span class="navbar-toggler-icon"></span>
@@ -33,15 +32,17 @@
             <div class="collapse navbar-collapse" id="navbarMenu">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="navbar-brand" th:href="@{/posts}">Posts</a></li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="navbar-brand" th:href="@{/profile}">Moje konto</a></li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="navbar-brand" th:href="@{/users}">Wyświetl użytkowników</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="btn btn-light mx-1" th:href="@{/login}">Zaloguj się</a></li>
+                        <a class="btn btn-light mx-1 btn-sm" th:href="@{/login}">Zaloguj się</a></li>
                     <li class="nav-item " sec:authorize="!isAuthenticated()">
-                        <a class="btn btn-light mx-1" th:href="@{/register}">Zarejestruj się</a></li>
+                        <a class="btn btn-light mx-1 btn-sm" th:href="@{/register}">Zarejestruj się</a></li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="btn btn-light mx-1" th:href="@{/logout}">Wyloguj się</a></li>
+                        <a class="btn btn-light mx-1 btn-sm" th:href="@{/logout}">Wyloguj się</a></li>
                 </ul>
             </div>
         </div>
@@ -49,8 +50,6 @@
 </div>
 <div th:fragment="footer">
     <footer class="footer">
-        <hr/>
-        <p>Politechnika Lubelska, wprowadzenie do Spring Boot</p>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
                 integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
                 crossorigin="anonymous"></script>

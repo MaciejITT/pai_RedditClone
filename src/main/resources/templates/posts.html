@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang= "pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head">
+</head>
+<body class="bg-light">
+<div th:include="layout :: navigationPanel"></div>
+<div class="container">
+    <h2> Popularne posty</h2>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="shadow p-3 mt-3 mb-2 bg-white">
+                <a th:href="@{/addPost}">Dodaj post</a><br>
+            </div>
+            <div class=" mb-3">
+                <div th:if="${#lists.isEmpty(postsList)}">
+                    Brak postów na stronie ...
+                </div>
+                <div th:if="${!#lists.isEmpty(postsList)}" class="mb-3">
+                    <div th:each="post:${postsList}" class="card mb-3">
+                        <div class="card-header" th:text="${post.user}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${post.post_name}"></h5>
+                            <p class="card-text" th:text="${post.post_content}"></p>
+                            <a href="#" class="btn btn-danger btn-sm mx-1">Więcej...</a>
+                            <div th:if="${post.user == user.login}">
+                            <a href="#" class="mx-1">Edytuj</a>
+                            <a th:href="@{'/post/delete/'+ ${post.postid}}" class="mx-1">Usuń</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="shadow p-3 mt-3 mb-5 bg-white">
+                Communities
+            </div>
+        </div>
+
+    </div>
+</div>
+<div th:include="layout :: footer"></div>
+</body>
+</html>

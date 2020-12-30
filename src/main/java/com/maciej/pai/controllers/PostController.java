@@ -5,13 +5,13 @@ import com.maciej.pai.dao.postDao;
 import com.maciej.pai.entity.User;
 
 import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -38,6 +38,17 @@ public class PostController {
         }
 
         postdao.save(post);
-        return "redirect:/profile";
+        return "redirect:/posts";
+    }
+    @GetMapping("/posts")
+    public String postsPage(Model m, Principal principal) {
+        m.addAttribute("postsList", postdao.findAll());
+        m.addAttribute("user", dao.findByLogin(principal.getName()));
+        return "posts";
+    }
+    @RequestMapping("/post/delete/{id}")
+    public String deletePost(@PathVariable int id){
+        postdao.deleteById(id);
+        return "redirect:/posts";
     }
 }

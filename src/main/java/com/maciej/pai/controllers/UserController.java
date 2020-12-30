@@ -47,6 +47,12 @@ public class UserController {
         return "redirect:/login";
     }
 
+    /*@GetMapping("/posts")
+    public String postsPage(Model m, Principal principal) {
+        m.addAttribute("user", dao.findByLogin(principal.getName()));
+        return "posts";
+    }*/
+
     @GetMapping("/profile")
     public String profilePage(Model m, Principal principal) {
         //dodanie do modelu obiektu user - aktualnie zalogowanego użytkownika:
@@ -75,7 +81,7 @@ public class UserController {
         updateUser.setSurname(userData.getSurname());
         updateUser.setPassword(passwordEncoder.encode(userData.getPassword()));
         dao.save(updateUser);
-        return "redirect:/profile";
+        return "redirect:/posts";
     }
     @GetMapping("/deleteUser")
     public String deleteUser(Principal principal) {

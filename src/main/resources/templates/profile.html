@@ -5,7 +5,6 @@
 <body>
 <div th:include="layout :: navigationPanel"></div>
 <h1 th:text="'Witaj ' +${user.name} + ' ' + ${user.surname}"></h1>
-<a th:href="@{/addPost}">Dodaj post</a><br>
 <a th:href="@{/editUser}">Edytuj swoje dane</a><br>
 <a th:href="@{/deleteUser}">Usuń konto</a>
 <div th:include="layout :: footer"></div>
