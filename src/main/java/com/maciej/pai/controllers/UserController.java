@@ -47,11 +47,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-    /*@GetMapping("/posts")
-    public String postsPage(Model m, Principal principal) {
-        m.addAttribute("user", dao.findByLogin(principal.getName()));
-        return "posts";
-    }*/
 
     @GetMapping("/profile")
     public String profilePage(Model m, Principal principal) {

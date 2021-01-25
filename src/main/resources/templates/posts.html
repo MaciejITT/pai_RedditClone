@@ -17,15 +17,29 @@
                 </div>
                 <div th:if="${!#lists.isEmpty(postsList)}" class="mb-3">
                     <div th:each="post:${postsList}" class="card mb-3">
-                        <div class="card-header" th:text="${post.user}">
+                        <div class="card-header" th:text="${post.user.getLogin()}">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${post.post_name}"></h5>
                             <p class="card-text" th:text="${post.post_content}"></p>
-                            <a href="#" class="btn btn-danger btn-sm mx-1">Więcej...</a>
-                            <div th:if="${post.user == user.login}">
-                            <a href="#" class="mx-1">Edytuj</a>
-                            <a th:href="@{'/post/delete/'+ ${post.postid}}" class="mx-1">Usuń</a>
+                            <div class="container">
+                                <div class="row">
+                                <div class="col-sm-1 mx-1">
+                                    <form method="get" th:action="@{/posts/more/{id}(id=${post.postid})}">
+                                        <input class="btn btn-danger btn-sm" type="submit" value="Więcej...">
+                                    </form>
+                                </div>
+                                <div class="col-sm-1 mx-1" th:if="${post.user.getUserid() == user.getUserid()}">
+                                    <form method="get" th:action="@{/posts/edit/{id}(id=${post.postid})}">
+                                        <input class="btn btn-dark btn-sm" type="submit" value="Edutuj">
+                                    </form>
+                                </div>
+                                <div class="col-sm-1" th:if="${post.user.getUserid() == user.getUserid()}">
+                                    <form method="post" th:action="@{/posts/delete/{id}(id=${post.postid})}">
+                                        <input class="btn btn-dark btn-sm" type="submit" value="Usuń">
+                                    </form>
+                                </div><div class="col-sm-9"></div>
+                            </div>
                             </div>
                         </div>
                     </div>

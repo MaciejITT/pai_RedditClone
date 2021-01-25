@@ -10,7 +10,7 @@
             <h2>Dodaj post</h2>
         </div>
         <form class="justify-content-center" th:action="@{/addPost}" method="POST" th:object="${post}">
-            <input class="form-control" type="hidden" th:field="*{user}"  th:errorClass="error" th:value="*{user}"/>
+            <!--<input class="form-control" type="hidden" th:field="*{user}"  th:errorClass="error" th:value="*{user}"/>-->
             <input class="form-control" type="hidden" th:field="*{votes}"  th:errorClass="error" th:value="0"/>
 
             <label for="NameFormControlInput" class="form-label">Tytuł</label>

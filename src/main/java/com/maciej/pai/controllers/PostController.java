@@ -7,13 +7,16 @@ import com.maciej.pai.entity.User;
 import java.security.Principal;
 import java.util.List;
 
+import com.maciej.pai.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.validation.Valid;
+import javax.xml.ws.http.HTTPException;
 
 @Controller
 public class PostController {
@@ -24,6 +27,7 @@ public class PostController {
     @Autowired
     private postDao postdao;
 
+
     @GetMapping("/addPost")
     public String addPostPage(Model m, Principal principal) {
         User user = dao.findByLogin(principal.getName());
@@ -32,11 +36,11 @@ public class PostController {
     }
 
     @PostMapping("/addPost")
-    public String addPostPagePOST(@ModelAttribute(value = "post") @Valid Post post, BindingResult binding) {
+    public String addPostPagePOST(@ModelAttribute(value = "post") @Valid Post post, BindingResult binding, Principal principal) {
         if (binding.hasErrors()) {
             return "addPost"; // powrót do formularza
         }
-
+        post.setUser(dao.findByLogin(principal.getName()));
         postdao.save(post);
         return "redirect:/posts";
     }
@@ -46,9 +50,33 @@ public class PostController {
         m.addAttribute("user", dao.findByLogin(principal.getName()));
         return "posts";
     }
-    @RequestMapping("/post/delete/{id}")
+    @PostMapping("/posts/delete/{id}")
     public String deletePost(@PathVariable int id){
         postdao.deleteById(id);
+        return "redirect:/posts";
+    }
+    @GetMapping("/posts/edit/{id}")
+    public String editPost(@PathVariable Integer id, Model m, Principal principal){
+        Post post_to_edit = postdao.findPostByPostid(id);
+        User user = dao.findByLogin(principal.getName());
+        m.addAttribute("post", post_to_edit);
+        if(post_to_edit.getUser().getUserid() != user.getUserid()){
+            return "redirect:/posts";
+        }else {
+            return "editPost";
+        }
+    }
+    @PostMapping("/editPost")
+    public String editUserPagePOST(@ModelAttribute(value = "post") @Valid Post post,BindingResult binding,Principal principal) {
+        if (binding.hasErrors()) {
+            return "editPost"; // powrót do formularza
+        }
+        Post updatePost = postdao.findPostByPostid(post.getPostid());
+        updatePost.setUser(dao.findByLogin(principal.getName()));
+        updatePost.setPost_name(post.getPost_name());
+        updatePost.setPost_content(post.getPost_content());
+
+        postdao.save(updatePost);
         return "redirect:/posts";
     }
 }

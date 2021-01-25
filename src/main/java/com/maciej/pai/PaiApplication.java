@@ -23,7 +23,7 @@ public class PaiApplication {
 	}
 	@PostConstruct
 	public void init() {
-		dao.save(new User("admin", "admin",
-				"admin",passwordEncoder.encode("passwd")));
+		/*dao.save(new User("admin", "admin",
+				"admin",passwordEncoder.encode("passwd")));*/
 	}
 }

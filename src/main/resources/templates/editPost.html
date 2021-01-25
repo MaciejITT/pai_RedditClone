@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang= "pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head">
+</head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+<div class="form p-4 ">
+    <div class="container col-sm-4 shadow p-3 mt-3 mb-5 bg-white rounded">
+        <div class="text-center">
+            <h1>Edytuj post</h1>
+        </div>
+        <form class="justify-content-center" th:action="@{/editPost}" method="POST" th:object="${post}">
+            <!--<input type="hidden" th:field="*{user}" th:errorClass="error" placeholder="Login"/>-->
+            <input type="hidden" th:field="*{postid}" th:errorClass="error" placeholder="postid"/>
+            <label for="PostNameFormControlInput" class="form-label">Tytuł</label>
+            <input class="form-control" type="text" th:field="*{post_name}" th:errorClass="error" id="PostNameFormControlInput"/>
+            <span th:if="${#fields.hasErrors('post_name')}" th:errors="*{post_name}">Błąd </span><br>
+
+            <label for="PostContentFormControlInput" class="form-label">Treść</label>
+            <input class="form-control" type="text" th:field="*{post_content}" th:errorClass="error" id="PostContentFormControlInput"/>
+            <span th:if="${#fields.hasErrors('post_content')}" th:errors="*{post_content}">Błąd </span><br>
+
+            <button type="submit">Zapisz</button>
+        </form>
+    </div>
+</div>
+<div th:include="layout :: footer"></div>
+</body>
+</html>
