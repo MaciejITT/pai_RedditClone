@@ -23,7 +23,7 @@
         <label for="PasswordFormControlInput" class="form-label">Hasło</label>
         <input class="form-control" type="password" th:field="*{password}" th:errorClass="error" id="PasswordFormControlInput"/>
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Błąd </span><br>
-        <button type="submit">Zapisz</button>
+        <button class="btn btn-dark" type="submit">Zapisz</button>
     </form>
     </div>
 </div>

@@ -20,6 +20,7 @@ public class User {
     private String surname;
 
     @NotNull
+    @Column(unique = true)
     @Pattern(regexp = "[a-zA-Z]{2,30}", message="Podaj poprawny login 2-30 znaków")
     private String login;
 

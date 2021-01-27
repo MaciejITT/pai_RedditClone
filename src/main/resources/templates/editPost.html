@@ -20,7 +20,7 @@
             <input class="form-control" type="text" th:field="*{post_content}" th:errorClass="error" id="PostContentFormControlInput"/>
             <span th:if="${#fields.hasErrors('post_content')}" th:errors="*{post_content}">Błąd </span><br>
 
-            <button type="submit">Zapisz</button>
+            <button class="btn btn-dark" type="submit">Zapisz</button>
         </form>
     </div>
 </div>

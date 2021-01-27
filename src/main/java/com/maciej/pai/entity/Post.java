@@ -18,7 +18,7 @@ public class Post {
 
     @NotNull
     @Column(length = 500)
-    @Pattern(regexp = "[A-Z][A-z0-9_ ]{30,500}$", message="Tytuł musi zawierać od 30 do 500 znaków")
+    @Pattern(regexp = "[A-Z][A-z0-9_,'():;.?!@#$%&* ]{30,500}$", message="Tytuł musi zawierać od 30 do 500 znaków")
     private String post_content;
 
     @ManyToOne(fetch=FetchType.LAZY)

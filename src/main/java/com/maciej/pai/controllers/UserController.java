@@ -3,6 +3,8 @@ import com.maciej.pai.dao.userDao;
 import com.maciej.pai.entity.User;
 
 import java.security.Principal;
+
+import org.hibernate.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,11 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/exists")
+    public String exists(){
+        return "alreadyExists";
+    }
+
     @GetMapping("/register")
     public String registerPage(Model m) {
         //dodanie do modelu nowego użytkownika
@@ -40,6 +47,9 @@ public class UserController {
     public String registerPagePOST(@ModelAttribute(value = "user") @Valid User user, BindingResult binding) {
         if (binding.hasErrors()) {
             return "register"; // powrót do formularza
+        }
+        if (dao.existsByLogin(user.getLogin())){
+            return "alreadyExists";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);

@@ -5,18 +5,15 @@ import com.maciej.pai.dao.postDao;
 import com.maciej.pai.entity.User;
 
 import java.security.Principal;
-import java.util.List;
 
-import com.maciej.pai.service.PostService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
 import javax.validation.Valid;
-import javax.xml.ws.http.HTTPException;
 
 @Controller
 public class PostController {
@@ -27,6 +24,11 @@ public class PostController {
     @Autowired
     private postDao postdao;
 
+
+    @GetMapping("/*")
+    public String resolveUnknownURL(){
+        return "unknownURL";
+    }
 
     @GetMapping("/addPost")
     public String addPostPage(Model m, Principal principal) {
@@ -44,6 +46,10 @@ public class PostController {
         postdao.save(post);
         return "redirect:/posts";
     }
+    @GetMapping("/posts/delete/*")
+    public String noIdToDeleteFound(){
+        return "redirect:/posts";
+    }
     @GetMapping("/posts")
     public String postsPage(Model m, Principal principal) {
         m.addAttribute("postsList", postdao.findAll());
@@ -54,6 +60,11 @@ public class PostController {
     public String deletePost(@PathVariable int id){
         postdao.deleteById(id);
         return "redirect:/posts";
+    }
+    @GetMapping("/posts/more/{id}")
+    public String moreAboutPost(@PathVariable Integer id, Model m){
+        m.addAttribute("post",postdao.findPostByPostid(id));
+        return "viewPost";
     }
     @GetMapping("/posts/edit/{id}")
     public String editPost(@PathVariable Integer id, Model m, Principal principal){

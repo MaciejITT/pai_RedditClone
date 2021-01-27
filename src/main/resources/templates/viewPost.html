@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang= "pl" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: head">
+</head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+<div class="form p-4 ">
+    <div class="container col-sm-8 shadow mt-3 mb-5 bg-white rounded">
+        <div class="justify-content-center" th:object="${post}">
+            <div class="card mb-3">
+                <div class="card-header" th:text="${post.user.getLogin()}"></div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${post.post_name}"></h5>
+                    <p class="card-text" th:text="${post.post_content}"></p>
+                    </div>
+                <a class="mt-1 btn btn-danger btn-sm" href="/posts">Powrót</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div th:include="layout :: footer"></div>
+</body>
+</html>
